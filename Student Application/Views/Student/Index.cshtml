@@ -1,0 +1,130 @@
+﻿@model IEnumerable<Student_Application.Entity.StudentDetail>
+@using PagedList.Mvc;
+@{
+	ViewBag.Title = "Index";
+}
+
+<link href="/Content/PagedList.css" rel="stylesheet" type="text/css" />
+<h2>Index</h2>
+
+<p>
+	@Html.ActionLink("Create New", "AddStudentDetails", "Student")
+</p>
+
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+<table class="table" id="StudentTable">
+	<tr>
+		@*<th>
+				@Html.DisplayNameFor(model => model.Student_ID)
+			</th>*@
+		<th>
+			@Html.DisplayNameFor(model => model.StudentDetials_ID)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.First_Name)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.Last_Name)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.Class)
+		</th>
+		@*<th>
+				@Html.DisplayNameFor(model => model.StudentDetials_ID)
+			</th>*@
+		<th>
+			@Html.DisplayNameFor(model => model.Marks)
+		</th>
+		@*<th>
+				@Html.DisplayNameFor(model => model.Subject_ID)
+			</th>*@
+		<th>
+			@Html.DisplayNameFor(model => model.Subject_Name)
+		</th>
+		<th>
+			<label>Actions</label>
+		</th>
+		<th></th>
+	</tr>
+
+	@if (Model != null)
+	{
+		var ID = 0;
+		foreach (var item in Model)
+		{
+			<tr>
+				@if (item.StudentDetials_ID != ID)
+				{
+
+					<td>
+						@Html.DisplayFor(modelItem => item.StudentDetials_ID)
+					</td>
+				}
+				@if (item.StudentDetials_ID != ID)
+				{
+					<td>
+						@Html.DisplayFor(modelItem => item.First_Name)
+					</td>
+				}
+				@if (item.StudentDetials_ID != ID)
+				{
+					<td>
+						@Html.DisplayFor(modelItem => item.Last_Name)
+					</td>
+				}
+				@if (item.StudentDetials_ID != ID)
+				{
+					<td>
+						@Html.DisplayFor(modelItem => item.Class)
+					</td>
+				}
+				<td>
+					@Html.DisplayFor(modelItem => item.Marks)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Subject_ID)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Subject_Name)
+				</td>
+				<td>
+					@Html.HiddenFor(modelItem => item.StudentDetials_ID, new { @class = "hiddenID" })
+					@Html.ActionLink("Edit", "Edit", new { id = item.StudentDetials_ID }, new { title = "Edit", @class = "imageAction" })
+					@*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
+					@Html.ActionLink("Delete", "Delete", new { id = item.StudentDetials_ID }, new { title = "Edit", @class = "imageAction" })
+				</td>
+			</tr>
+			{ ID = item.StudentDetials_ID; }
+		}
+	}
+
+</table>
+@*Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+	@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))*@
+
+<script>
+	function Search() {
+		var input, filter, table, tr, td, i, txtValue;
+		input = document.getElementById("myInput");
+		filter = input.value.toUpperCase();
+		table = document.getElementById("StudentTable");
+		tr = table.getElementsByTagName("tr");
+		for (i = 0; i < tr.length; i++) {
+			td = tr[i].getElementsByTagName("td")[3];
+			if (td) {
+				txtValue = td.textContent || td.innerText;
+				if (txtValue.toUpperCase().indexOf(filter) > -1) {
+					tr[i].style.display = "";
+				}
+				else {
+					td = tr[i].getElementsByTagName("td")[4];
+					txtValue = td.textContent || td.innerText;
+					if (txtValue.toUpperCase().indexOf(filter) > -1) {
+						tr[i].style.display = "";
+					}
+					else { tr[i].style.display = "none"; }
+				}				
+			}
+		}
+	}
+</script>
